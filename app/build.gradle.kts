@@ -24,11 +24,23 @@ android {
         versionName = "1.1"
     }
 
+    // ========== 新增：签名配置 ==========
+    signingConfigs {
+        create("release") {
+            storeFile = file("debugmt.keystore")
+            storePassword = "android"       // 密钥库密码
+            keyAlias = "mt"    // 密钥别名
+            keyPassword = "android"         // 密钥密码
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-files.pro")
+            // ========== 新增：将签名配置应用到 release ==========
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
