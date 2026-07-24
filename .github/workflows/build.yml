@@ -22,12 +22,12 @@ jobs:
           gradle-version: '9.6.1'
 
       - name: Build APK
-        # 安卓打包命令
+        # 安卓打包命令 (现在会自动使用 debugmt.keystore 签名)
         run: gradle :app:assembleRelease
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: brarchive-app
-          # 提取未签名的 release apk
-          path: app/build/outputs/apk/release/app-release-unsigned.apk
+          # 【修改点】：提取已签名的 release apk，去掉 -unsigned
+          path: app/build/outputs/apk/release/app-release.apk
